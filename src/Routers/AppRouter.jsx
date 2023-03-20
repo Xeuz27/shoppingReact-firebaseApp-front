@@ -27,14 +27,14 @@ export const AppRouter = () => {
     >
       <Routes>
 
-        {Authstate.user ? 
+        {Authstate.role === Roles.user ? 
         <>
         <Route path="password-forget" element={<ResetPassword />} />
         <Route path="/profile" element={<User />} />
         </>
          : null}
 
-        {!!Authstate.user &&
+        {!!Authstate.email &&
         Authstate.role === Roles.admin &&
         Authstate.isVerified ? (
           <Route path="/administrator" element={<Administrator />} />
