@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../imgs/logoyoha.jpg";
 import { Link } from "react-router-dom";
-import { Nav } from "react-bootstrap";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/authContext";
 import { Roles } from "../constants/roles";
