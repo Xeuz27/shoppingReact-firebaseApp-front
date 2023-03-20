@@ -27,7 +27,7 @@ export default function Login() {
     try {
       const logInResponse = await login(email, password);
       dispatch({ type: AuthActions.logIn, user: logInResponse.user });
-      Navigate("/user");
+      Navigate("/profile");
     } catch (error) {
       dispatch({ type: AuthActions.logInFailed, error: error.code });
     }

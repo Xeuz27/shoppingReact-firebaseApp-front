@@ -20,6 +20,7 @@ import { User } from "../components/User";
 export const AppRouter = () => {
   const { auth } = useContext(firebaseContext);
   const [Authstate, dispatch] = useReducer(AuthReducer, initialAuthState);
+  console.log(Authstate,'from approuter authstate')
 
   return (
     <AuthContext.Provider
