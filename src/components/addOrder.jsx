@@ -191,7 +191,7 @@ export default function AddOrder() {
         </Card.Body>
       </Card>
 
-      {Orderstate.products ? (
+      {Orderstate.products.length > 1 ? (
         <div className="tableContainer">
           <Table className="paleBlueRows">
             <thead>
