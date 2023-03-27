@@ -38,7 +38,7 @@ export async function createUser(id, displayName) {
 }
 
 export async function createOrder(orderId, id, products) {
-  const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/packages/add", {
+  const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/package/add", {
     orderId: orderId,
     id: id,
     products: products,
