@@ -19,7 +19,7 @@ export async function getUsersData() {
 }
 
 export async function registerUser(email, displayName, id) {
-  const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/register", {
+  const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/users/register", {
     email: email,
     displayName: displayName,
     id: id,
@@ -30,7 +30,7 @@ export async function registerUser(email, displayName, id) {
 
 
 export async function createUser(id, displayName) {
-  const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/add", {
+  const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/users/add", {
     id: id,
     displayName: displayName,
   });
@@ -38,7 +38,7 @@ export async function createUser(id, displayName) {
 }
 
 export async function createOrder(orderId, id, products) {
-  const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/add", {
+  const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/packages/add", {
     orderId: orderId,
     id: id,
     products: products,
