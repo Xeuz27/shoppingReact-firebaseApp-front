@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.defaults.withCredentials = false;
+axios.defaults.withCredentials = true;
 
 
 export async function getPackageData(id, idOrder) {
