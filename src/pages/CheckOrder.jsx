@@ -1,25 +1,35 @@
 
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState } from 'react';
+import { Alert } from 'react-bootstrap';
 import { getPackageData } from '../APi/request';
 import Header from '../components/Header';
 import PackageTable from '../components/packageTable'
+import { AuthActions, } from '../constants/actions';
+import { AuthContext } from '../contexts/authContext';
 
 export default function CheckOrder() {
-    // axios.defaults.withCredentials = false;
+    const { Authstate } = useContext(AuthContext);
+    const { dispatch } = useContext(AuthContext);
+
+    let { errorMessage } = Authstate;
+    let { isLoading } = Authstate;
     
     const [packageItems, setPackageItems] = useState(null);
-    // const [usersData, setUsersData] = useState(null);
     const [id, setId] = useState("");
     const [idOrder, setIdOrder] = useState("");
     
-
     const handleOrder = async (e) => {
+        dispatch({type: AuthActions.checking})
         e.preventDefault();
-        const data = await getPackageData(id, idOrder);
-        setPackageItems(data);
+        try {
+            const data = await getPackageData(id, idOrder);
+            setPackageItems(data);
+        } catch (error) {
+            dispatch({type: AuthActions.actionFailed, error: error.code})
+        }
     }
-
+    
     return (
         <>
             <Header />
@@ -27,19 +37,20 @@ export default function CheckOrder() {
                (<div className='signInContainer'>
                     <div className="column" id="orderForm">
                         <div>
-                            <h3>Ingresa el numero de tu Pedido</h3>
+                            <h3>Ingresa el número de tu Pedido</h3>
                             <span>para ver su estado</span>
                         </div>
+                        {isLoading === true ? <Alert>...Loading</Alert> : null }
+                        {!!errorMessage === true ? <Alert variant='danger'>{errorMessage}</Alert> : null }
                         <form method="POST" onSubmit={handleOrder} >
                             <label>cédula de identidad</label>
                             <input onChange={(val) => setId(val.target.value)} type="text" placeholder="1222333" name="id" id="id" required />
                             <label>número de pedido</label>
                             <input onChange={(val) => setIdOrder(val.target.value)} type="text" placeholder="1A5Z32" name="idOrder" id="idOrder" required />
                             <input type="submit" value="Enviar" name="submitButton" /> 
-                            {/* <button onClick={handleClick}>get users data</button>
-                            <button onClick={handlePost}> post users data</button>  */}
                         </form>
-                        <a href="register.php" className="signInMessage">Todavia no tienes un Pedido? Compra Aqui</a>
+                        {/* shopping page isnt available yet  */}
+                        {/* <a href="register.php" className="signInMessage">Todavia no tienes un Pedido? Compra Aqui</a> */}
                     </div>
                 </div>)}
             {packageItems && (<PackageTable packageItems={packageItems}  />)}

@@ -15,41 +15,59 @@ import Services from "../pages/Services";
 import Locker from "../pages/Locker";
 import { ResetPassword } from "../pages/ResetPassword";
 import Administrator from "../pages/Administrator";
-import { User } from "../components/User";
+import { User } from "../pages/User";
+import AddUser from "../components/addUser";
+import AddOrder from "../components/addOrder";
+import UsersTable from "../components/UsersTable";
 
 export const AppRouter = () => {
   const { auth } = useContext(firebaseContext);
   const [Authstate, dispatch] = useReducer(AuthReducer, initialAuthState);
-  console.log(Authstate,'from approuter authstate')
 
   return (
     <AuthContext.Provider
       value={{ auth: auth, Authstate: Authstate, dispatch }}
     >
       <Routes>
+        {(Authstate.role === Roles.user || Authstate.role === Roles.admin) &&
+        Authstate.email ? (
+          <>
+            <Route path="/profile" element={<User />} />
+          </>
+        ) : null}
 
-        {Authstate.role === Roles.user ? 
-        <>
-        <Route path="password-forget" element={<ResetPassword />} />
-        <Route path="/profile" element={<User />} />
-        </>
-         : null}
-
+        {/* available only to admin */}
         {!!Authstate.email &&
         Authstate.role === Roles.admin &&
         Authstate.isVerified ? (
-          <Route path="/administrator" element={<Administrator />} />
+          <>
+            <Route path="/administrator" element={<Administrator />} />
+            <Route
+              path="/administrator/user"
+              element={<Administrator Children={<AddUser />}></Administrator>}
+            />
+            <Route
+              path="/administrator/getusers"
+              element={
+                <Administrator Children={<UsersTable />}></Administrator>
+              }
+            />
+            <Route
+              path="/administrator/order"
+              element={<Administrator Children={<AddOrder />}></Administrator>}
+            />
+          </>
         ) : null}
-        {/* guest or public routes */}
+
+        {/* available only to guest user */}
         {Authstate.role === Roles.guest ? (
           <>
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<SignUp />} />
-            <Route path="password-forget" element={<ResetPassword />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/password-forget" element={<ResetPassword />} />
           </>
-        ) : (
-          <></>
-        )}
+        ) : null}
+
         <Route path="/home" element={<Home />} />
 
         <Route path="services" element={<Services />} />
@@ -58,15 +76,6 @@ export const AppRouter = () => {
         <Route path="/order" element={<CheckOrder />} />
         <Route path="/order/:idOrder" element={<CheckOrder />} />
 
-        {/* <Route path="/*" element={<Navigate to='/public/home' />} />  */}
-
-        {/* (
-          <Route path="/user/*" element={<UserRoutes />} />
-        ) : (
-          <Route path="/public/*" element={<GuestRoutes />} />
-        )}
-        <Route path="/public/home" element={<Home />} /> */}
-
         <Route path="/*" element={<Navigate to="/home" />} />
       </Routes>
     </AuthContext.Provider>
@@ -74,32 +83,3 @@ export const AppRouter = () => {
 };
 
 export default AppRouter;
-
-/* {Authstate.role === Roles.user ? (
-  <AuthContext.Provider>
-          <Route path="/user/:uid*" element={<UserRoutes Authstate={Authstate} />} />
-          </>
-        ) : null} */
-
-/* <Route activeKey="/" path="/" element={<Home />} />
-      <Route path="/home" element={<Home />} />
-
-      <Route path="/services" element={<Services />} />
-      <Route path="/administrator" element={<Administrator />} />
-      <Route
-        path="*"
-        element={
-          <h1>
-            404 <br /> Not Found
-          </h1>
-        }
-      /> */
-
-/* <Routes>
-    {status === "authenticated" ? (
-      <Route path="/*" element={<JournalRoutes />} />
-    ) : (
-      <Route path="/auth/*" element={<AuthRoutes />} />
-    )}
-    <Route path="/*" element={<Navigate to="/auth/login" />} />
-    </Routes> */

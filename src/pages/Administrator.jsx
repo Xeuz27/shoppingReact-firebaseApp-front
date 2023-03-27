@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useReducer } from 'react'
 import Header from '../components/Header'
-import UsersTable from '../components/UsersTable'
+import { OrderContext } from "../contexts/orderContext";
+import { initialOrderState, OrderReducer } from "../reducers/orderReducer";
 
-const Administrator = () => {
+const Administrator = ({Children}) => {
+  const [Orderstate, orderDispatch] = useReducer(OrderReducer, initialOrderState)
+
   return (
     <>
+    <OrderContext.Provider value={{Orderstate: Orderstate, orderDispatch}}> 
     <Header />
-    <UsersTable  />
+    <div className="signInContainerLoginPage">
+      <div className="columnLoginPage">
+        {Children}
+      </div>
+    </div>
+    </OrderContext.Provider>
     </>
   )
 }

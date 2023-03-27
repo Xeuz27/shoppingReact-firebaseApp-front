@@ -19,7 +19,7 @@ export const ResetPassword = () => {
   const formData = {
     email: "",
   };
-  const { email, onInputChange } = useForm(formData);
+  const { email, onResetForm, onInputChange } = useForm(formData);
 
   async function handleSubmit(e) {
     dispatch({ type: AuthActions.checking });
@@ -28,8 +28,9 @@ export const ResetPassword = () => {
     try {
       await resetPassword(email);
       dispatch({ type: AuthActions.actionSuccess, successMessage: 'Por Favor Revise su Correo Electronico' });
+      onResetForm();
     } catch (error) {
-      dispatch({ type: AuthActions.logInFailed, error: error.code });
+      dispatch({ type: AuthActions.actionFailed, error: error.code });
     }
   }
 
@@ -79,9 +80,7 @@ export const ResetPassword = () => {
                   Enviar
                 </Button>
               </Form>
-              {/* <div className="w-100 text-center mb-3">
-                <Link to="/password-forget">Olvidaste la Contraseña?</Link>
-              </div> */}
+              
               <div className="w-100 text-center mb-3">
                 No tienes una cuenta? <Link to="/signup">Regístrate</Link>
               </div>

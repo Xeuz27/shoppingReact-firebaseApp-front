@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 export default function Home() {
   return (
     <>
+    {/* correct background position */}
       <Header />
       <div className="previewContainer">
         <div className="previewOverlay">
@@ -16,10 +17,10 @@ export default function Home() {
                 <i className="fa-solid fa-boxes-packing"></i>
                 <Link to="/order">Ver Pedido</Link>
               </button>
-              <button>
+              {/* <button>
                 <i className="fa-solid fa-cart-shopping"></i>
                 <Link to="/shopping">Hacer Compra</Link>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

@@ -1,14 +1,21 @@
 export const AuthActions = {
     checking: 'checking',
     actionSuccess: 'actionSuccess',
-    logIn:'logIn',
-    logInFailed: 'logInFailed',
     actionFailed:'actionFailed',
-    signUp:'signUp',
+    logIn:'logIn',
     logOut:'logOut',
 
-    updateUserEmail:'updateUserEmail',
-    updateUserPassword:'updateUserPassword',
-    resetPassword:'resetPassword',
-    verifyEmail:'verifyEmail',
+    setFirstName: 'setFirstName',
+    setLastName: 'setLastName',
+
+
+
+
+}
+
+export const ProductActions = {
+    addProduct : 'addProduct',
+    removeProduct : 'removeProduct',
+    createOrder: 'createOrder',
+    calculateTotal: 'calculateTotal'
 }

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
+import { registerUser } from "../APi/request";
 import Header from "../components/Header";
 import { AuthActions } from "../constants/actions";
 import { AuthContext } from "../contexts/authContext";
@@ -11,16 +12,26 @@ export default function SignUp() {
   const Navigate = useNavigate();
   const { Authstate } = useContext(AuthContext);
   const { dispatch } = useContext(AuthContext);
-  
+
   let { errorMessage } = Authstate;
   let { isLoading } = Authstate;
 
   const formData = {
     email: "",
+    id: "",
+    displayName: "",
     password: "",
     password2: "",
   };
-  const { email, password, password2, onInputChange } = useForm(formData);
+  const {
+    email,
+    password,
+    password2,
+    id,
+    displayName,
+    onResetForm,
+    onInputChange,
+  } = useForm(formData);
 
   async function handleSubmit(e) {
     dispatch({ type: AuthActions.checking });
@@ -35,13 +46,16 @@ export default function SignUp() {
     }
 
     try {
-      // todo: check if the response is the same as login, to doubleckeck what is sent to reducer from the sign up function
-      const SignUpResponse = await signup(email, password);
-      dispatch({ type: AuthActions.logIn, user: SignUpResponse.user });
-      Navigate("/user");
-    } catch (error) {
-      dispatch({ type: AuthActions.logInFailed, error: error.code });
-    }
+      //register user to auth service
+       const SignUpResponse = await signup(email, password);
+       dispatch({ type: AuthActions.logIn, user: SignUpResponse.user });
+      //register user to our db
+      registerUser(email, displayName, id );
+         Navigate("/user");
+         onResetForm();
+       } catch (error) {
+         dispatch({ type: AuthActions.actionFailed, error: error.code });
+       }
   }
 
   return (
@@ -51,8 +65,7 @@ export default function SignUp() {
         <div className="columnLoginPage">
           <Card>
             <Card.Body className="p-0">
-              <h2 className="text-center p-2 bg-acqua mb-0">Registro</h2>
-              {/* {error && <Alert variant="danger"> {error} </Alert>} */}
+              <h2 className="text-center p-2 bg-acqua mb-0">Regístro</h2>
               {!!errorMessage === true ? (
                 <Alert
                   style={{ marginInline: "auto", width: "50%" }}
@@ -62,7 +75,34 @@ export default function SignUp() {
                   {errorMessage}
                 </Alert>
               ) : null}
-              <Form className={errorMessage ? "p-3 pt-0" : "p-3"} onSubmit={handleSubmit}>
+              <Form
+                className={errorMessage ? "p-3 pt-0" : "p-3"}
+                onSubmit={handleSubmit}
+              >
+                <Form.Group className="mb-3" id="displayName">
+                  <Form.Label>Nombre Completo</Form.Label>
+                  <Form.Control
+                    placeholder="Alejandro Mendoza"
+                    type="text"
+                    required
+                    name="displayName"
+                    value={displayName}
+                    onChange={onInputChange}
+                  ></Form.Control>
+                </Form.Group>
+
+                <Form.Group className="mb-3" id="id">
+                  <Form.Label>Numero de Cédula</Form.Label>
+                  <Form.Control
+                    placeholder="numeros enteros sin puntos o espacios ejemplo: '8123987'"
+                    type="text"
+                    required
+                    name="id"
+                    value={id}
+                    onChange={onInputChange}
+                  ></Form.Control>
+                </Form.Group>
+
                 <Form.Group className="mb-3" id="email">
                   <Form.Label>Correo</Form.Label>
                   <Form.Control
@@ -74,6 +114,7 @@ export default function SignUp() {
                     onChange={onInputChange}
                   ></Form.Control>
                 </Form.Group>
+
                 <Form.Group className="mb-3" id="password">
                   <Form.Label>Contraseña</Form.Label>
                   <Form.Control
@@ -85,6 +126,7 @@ export default function SignUp() {
                     onChange={onInputChange}
                   ></Form.Control>
                 </Form.Group>
+
                 <Form.Group className="mb-3" id="password2">
                   <Form.Label>Confirma la Contraseña</Form.Label>
                   <Form.Control

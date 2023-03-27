@@ -11,37 +11,35 @@ export default function UsersTable() {
     
     if (usersData === null ) {
         return ( 
-            <div className='signInContainer'> 
                 <button onClick={getData}> get data </button>
-            </div>
             )
     } else {
         return (
-                <div className='signInContainer'>
+                <>
                     <h2> Lista de Usuarios </h2>
                     <div className='tableContainer'>
                         <table className="paleBlueRows">
                             <thead>
                                 <tr>
                                     <th> # de cédula </th>
-                                    <th> nombre </th>
-                                    <th> apellido </th> 
+                                    <th> nombre completo </th>
                                     <th> correo </th>
+                                    <th> fecha de registro </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {usersData.map( (element, index) => (
                                     <tr key={index}>
-                                        <td> {element.id}</td>
-                                        <td> {element.firstName}</td>
-                                        <td> {element.lastName}</td>
+                                        <td> {element.userId}</td>
+                                        <td> {element.displayName}</td>
                                         <td> {element.email}</td>
+                                        <td> {element.signUpDate}</td>
                                     </tr>
                                 ))}
                             </tbody> 
                         </table>
                     </div>          
-                </div>        
+                </>        
         )
     }                                                        
 }

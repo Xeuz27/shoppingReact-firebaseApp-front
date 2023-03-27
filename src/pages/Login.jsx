@@ -3,7 +3,7 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import Header from "../components/Header";
 import { AuthContext } from "../contexts/authContext";
-import { login } from "../firebaseConfig";
+import { login, singInWithGoogle } from "../firebaseConfig";
 import { useForm } from "../hooks/UseForm";
 import { AuthActions } from "../constants/actions";
 
@@ -19,7 +19,14 @@ export default function Login() {
 
   let { errorMessage } = Authstate;
   let { isLoading } = Authstate;
-  const { email, password, onInputChange } = useForm(formData);
+  const { email, password, onInputChange, onResetForm } = useForm(formData);
+
+  async function handlegoogleSignin (e) {
+    dispatch({type: AuthActions.checking})
+    e.preventDefault() 
+    await singInWithGoogle()
+  }
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -27,9 +34,10 @@ export default function Login() {
     try {
       const logInResponse = await login(email, password);
       dispatch({ type: AuthActions.logIn, user: logInResponse.user });
+      onResetForm();
       Navigate("/profile");
     } catch (error) {
-      dispatch({ type: AuthActions.logInFailed, error: error.code });
+      dispatch({ type: AuthActions.actionFailed, error: error.code });
     }
   }
 
@@ -79,11 +87,14 @@ export default function Login() {
                 <Button disabled={isLoading} className="w-100" type="submit">
                   Inicia sesión
                 </Button>
+                <Button onClick={handlegoogleSignin}className="w-100 btn-danger mt-3" type="submit">
+                  Inicia sesión con Google
+                </Button>
               </Form>
               <div className="w-100 text-center mb-3">
                 <Link to="/password-forget">Olvidaste la Contraseña?</Link>
               </div>
-              <div className="w-100 text-center mt-3 mb-3">
+              <div className="w-100 text-center mb-3">
                 No tienes una cuenta? <Link to="/signup">Regístrate</Link>
               </div>
             </Card.Body>

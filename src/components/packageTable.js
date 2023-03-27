@@ -1,44 +1,49 @@
-import React from 'react'
-import { Nav } from "react-bootstrap";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export default function PackageTable(data) {
+  const Navigate =  useNavigate()
+const handleBackButton = () =>{
+  Navigate('/home')
+}
+  if (data.packageItems.length !== 0) {
+    return (
+      <div className="signInContainer">
+        <h2> Lista de Productos </h2>
+        <div className="tableContainer">
+          <table className="paleBlueRows">
+            <thead>
+              <tr>
+                <th> producto </th>
+                <th> descripcion </th>
+                <th> precio </th>
+                <th> cantidad </th>
+                <th> foto </th>
+              </tr>
+            </thead>
 
-    if (data.packageItems.length !== 0 ) {
-        return ( 
-            <div className='signInContainer'>
-
-                    <h2> Lista de Productos </h2>
-                <div className='tableContainer'>
-                    <table className="paleBlueRows">
-                        <thead>
-                            <tr>
-                                <th> # de pedido </th>
-                                <th> # de cédula </th>
-                                <th> producto </th> 
-                                <th> foto </th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {data.packageItems.map( (element, index) => (
-                                <tr key={index}>
-                                    <td> {element.idPackage}</td>
-                                    <td> {element.idUser}</td>
-                                    <td> {element.productName}</td> 
-                                    <td> <img src={element.productPhoto} alt='foto del producto' /></td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div> 
-                    <button>
-                        <Nav.Link href="/order">Atras</Nav.Link>
-                    </button>
-            </div>
-        )
-    } else {
-        return 
-    }
-
-  
+            <tbody>
+              {data.packageItems.map((item, index) => (
+                <tr key={index}>
+                  <td> {item.name}</td>
+                  <td> {item.descripcion}</td>
+                  <td> {item.price} $</td>
+                  <td> {item.quantity} UND</td>
+                  <td>
+                    <img src={item.productPhoto} alt={`foto de ${item.name}`} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <button onClick={handleBackButton} className="btn btn-danger">
+           Atras
+        </button>
+      </div>
+    );
+  } else {
+    return;
+  }
 }
