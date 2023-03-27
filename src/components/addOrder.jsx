@@ -191,20 +191,20 @@ export default function AddOrder() {
         </Card.Body>
       </Card>
 
-      {Orderstate.products &&
-        Orderstate.products.map((product) => (
-          <div className="tableContainer">
-            <Table className="paleBlueRows">
-              <thead>
-                <tr>
-                  <th>nombre de producto</th>
-                  <th>descripcion</th>
-                  <th>precio</th>
-                  <th>cantidad</th>
-                  <th>foto</th>
-                </tr>
-              </thead>
-              <tbody>
+      {Orderstate.products ? (
+        <div className="tableContainer">
+          <Table className="paleBlueRows">
+            <thead>
+              <tr>
+                <th>nombre de producto</th>
+                <th>descripcion</th>
+                <th>precio</th>
+                <th>cantidad</th>
+                <th>foto</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Orderstate.products.map((product) => (
                 <tr>
                   <td>{product.name}</td>
                   <td>{product.descripcion}</td>
@@ -212,10 +212,11 @@ export default function AddOrder() {
                   <td>{product.quantity} UND</td>
                   <td>{product.photourl}</td>
                 </tr>
-              </tbody>
-            </Table>
-          </div>
-        ))}
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      ) : null}
     </>
   );
 }
