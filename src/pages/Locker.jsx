@@ -14,7 +14,7 @@ export default function Locker() {
             <h1>Servicio de Casillero</h1>
             <p>
               El servicio de casillero es completamente GRATIS. Con
-              <Link to="/home">PorTuCompraUSA</Link> tendras una dirección en
+              <Link to="/home"> PorTuCompraUSA</Link> tendras una dirección en
               USA para recibir tus compras y reenviarlas a tu destino.
             </p>
             <h2>Cómo?</h2>
