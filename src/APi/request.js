@@ -3,7 +3,7 @@ axios.defaults.withCredentials = false;
 
 
 export async function getPackageData(id, idOrder) {
-  const req = await axios.post("http://localhost:3005/package", {
+  const req = await axios.post("https://shopping-react-firebase-app-back.vercel.app/package", {
     id: id,
     idOrder: idOrder,
   });
@@ -13,13 +13,13 @@ export async function getPackageData(id, idOrder) {
 }
 
 export async function getUsersData() {
-  const req = await axios.get("http://localhost:3005/users/");
+  const req = await axios.get("https://shopping-react-firebase-app-back.vercel.app/users");
   const usersData = await req.data.results;
   return usersData;
 }
 
 export async function registerUser(email, displayName, id) {
-  const request = await axios.post("http://localhost:3005/users/register", {
+  const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/register", {
     email: email,
     displayName: displayName,
     id: id,
@@ -30,7 +30,7 @@ export async function registerUser(email, displayName, id) {
 
 
 export async function createUser(id, displayName) {
-  const request = await axios.post("http://localhost:3005/users/add", {
+  const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/add", {
     id: id,
     displayName: displayName,
   });
@@ -38,7 +38,7 @@ export async function createUser(id, displayName) {
 }
 
 export async function createOrder(orderId, id, products) {
-  const request = await axios.post("http://localhost:3005/package/add", {
+  const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/add", {
     orderId: orderId,
     id: id,
     products: products,

@@ -18,7 +18,6 @@ export default function AddOrder() {
   const { orderDispatch } = useContext(OrderContext);
   // const [img, setimg] = useState([]);
 
-
   const formData = {
     clientId: "",
     idOrder: "",
@@ -68,10 +67,8 @@ export default function AddOrder() {
   };
   return (
     <>
-
-       
       {/*  add margin top 250px to first card */}
-      <Card>
+      <Card style={{ marginTop: "480px" }}>
         <h2 className="text-center p-2 bg-acqua mb-0">Crear Paquete</h2>
         <Card.Body>
           {/* {!!errorMessage && <Alert variant="danger"> {errorMessage} </Alert>}
@@ -194,20 +191,20 @@ export default function AddOrder() {
         </Card.Body>
       </Card>
 
-      <div className="tableContainer">
-        <Table className="paleBlueRows">
-          <thead>
-            <tr>
-              <th>nombre de producto</th>
-              <th>descripcion</th>
-              <th>precio</th>
-              <th>cantidad</th>
-              <th>foto</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Orderstate.products &&
-              Orderstate.products.map((product) => (
+      {Orderstate.products &&
+        Orderstate.products.map((product) => (
+          <div className="tableContainer">
+            <Table className="paleBlueRows">
+              <thead>
+                <tr>
+                  <th>nombre de producto</th>
+                  <th>descripcion</th>
+                  <th>precio</th>
+                  <th>cantidad</th>
+                  <th>foto</th>
+                </tr>
+              </thead>
+              <tbody>
                 <tr>
                   <td>{product.name}</td>
                   <td>{product.descripcion}</td>
@@ -215,34 +212,10 @@ export default function AddOrder() {
                   <td>{product.quantity} UND</td>
                   <td>{product.photourl}</td>
                 </tr>
-              ))}
-          </tbody>
-        </Table>
-      </div>
+              </tbody>
+            </Table>
+          </div>
+        ))}
     </>
   );
 }
-//----------------- card to check order data while being created
-// {Orderstate ? (
-//   <>
-//     <Card id="authState">
-//       <ul>
-//         <li>
-//           clientId:
-//           {!!Orderstate.clientId === true ? (
-//             <p>{Orderstate.clientId}</p>
-//           ) : (
-//             "no disponible"
-//           )}
-//         </li>
-//         <li>orderId: {Orderstate.orderId}</li>
-//         <li>status: {Orderstate.status}</li>
-
-//         {/* {Orderstate.products.map( (product) => (
-//               <li key={product.name}> {product.name} </li>
-//             ) )}
-//             <li>products: {Orderstate.products[0].name}  </li> */}
-//       </ul>
-//     </Card>
-//   </>
-// ) : null}

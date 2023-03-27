@@ -50,12 +50,8 @@ export default function Header() {
               </Link>
             </div>
             <div className="enlaces" id="enlaces">
-              {Authstate.role === Roles.admin ? (
-                <li>
-                  <Link to="/administrator">administrator</Link>
-                </li>
-              ) : null}
-              {!!Authstate.email ? (
+              
+              {Authstate.role === Roles.user || Authstate.role === Roles.admin ? (
                 <>
                   <li>
                     <Link to="/profile">user</Link>

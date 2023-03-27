@@ -41,7 +41,7 @@ export default function AddUser() {
     )
   };
   return (
-    <Card>
+    <Card  style={{marginTop:'480px'}}>
       <h2 className="text-center p-2 bg-acqua mb-0">crear Usuario</h2>
       <Card.Body>
         {!!errorMessage && <Alert variant="danger"> {errorMessage} </Alert>}
