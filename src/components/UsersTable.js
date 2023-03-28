@@ -11,7 +11,7 @@ export default function UsersTable() {
     
     if (usersData === null ) {
         return ( 
-                <button onClick={getData}> get data </button>
+                <button style={{display:'Block',marginInline:'auto', marginTop: '50%'}} className='btn btn-primary' onClick={getData}> ver usuarios </button>
             )
     } else {
         return (
