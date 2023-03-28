@@ -83,7 +83,6 @@ export default function Header() {
               </li>
             
               {Authstate.role === Roles.admin ? <>
-              {/* <li><Link to='/administrator/user'>Agregar usuario</Link></li> */}
               <li><Link to="/administrator/getusers"> Ver usuarios</Link></li>
               <li><Link to="/administrator/order"> Crear paquete</Link></li>
               </>: null}

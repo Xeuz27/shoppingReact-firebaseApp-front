@@ -90,6 +90,7 @@ export const User = () => {
 
           <Card>
             <Card.Body>
+            <h2 className="text-center p-2 bg-acqua mb-0">perfil de usuario</h2>
               {errorMessage && <Alert variant="danger"> {errorMessage} </Alert>}
               {successMessage && (
                 <Alert variant="success"> {successMessage} </Alert>

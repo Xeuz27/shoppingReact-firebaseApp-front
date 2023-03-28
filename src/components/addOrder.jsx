@@ -206,7 +206,7 @@ export default function AddOrder() {
                 <th>descripcion</th>
                 <th class="numeric">precio</th>
                 <th class="numeric">cantidad</th>
-                <th>foto</th>
+                {/* <th>foto</th> */}
               </tr>
             </thead>
             <tbody>
@@ -216,7 +216,7 @@ export default function AddOrder() {
                   <td data-title="descripcion">{product.descripcion}</td>
                   <td data-title="price" class="numeric">{product.price} $</td>
                   <td data-title="quantity" class="numeric">{product.quantity} UND</td>
-                  <td data-title="foto">{product.photourl}</td>
+                  {/* <td data-title="foto">{product.photourl}</td> */}
                 </tr>
               ))}
             </tbody>
