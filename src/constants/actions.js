@@ -17,5 +17,6 @@ export const ProductActions = {
     addProduct : 'addProduct',
     removeProduct : 'removeProduct',
     createOrder: 'createOrder',
-    calculateTotal: 'calculateTotal'
+    calculateTotal: 'calculateTotal',
+    clearState: 'clearState'
 }

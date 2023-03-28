@@ -13,7 +13,6 @@ import Header from "../components/Header";
 import { useForm } from "../hooks/UseForm";
 import { updateUserPassword, updateUserEmail, updateDisplayName } from "../firebaseConfig";
 import { AuthActions } from "../constants/actions";
-import { Roles } from "../constants/roles";
 import { firebaseContext } from "../contexts/firebaseContext";
 
 export const User = () => {
@@ -43,9 +42,6 @@ export const User = () => {
     onResetForm,
   } = useForm(formData);
 
-  // add functions to update user data,
-  // user is only verifyable by signing in with a google pop up
-  //ONLY AVAILABLE FUNCTION IS TO RESET PASSWORD
   const handleClick = (e) => {
     e.preventDefault();
     if (password !== password2) {
@@ -60,6 +56,9 @@ export const User = () => {
         type: AuthActions.actionSuccess,
         successMessage: "Contraseña Actualizada, por favor logeate de nuevo",
       });
+      setTimeout(() => {
+        dispatch({type: AuthActions.logOut})
+      }, 3000);
     }
     if (email && email !== Authstate.email) {
       updateUserEmail(auth.currentUser, email);
@@ -67,6 +66,9 @@ export const User = () => {
         type: AuthActions.actionSuccess,
         successMessage: "correo Actualizado, por favor logeate de nuevo",
       });
+      setTimeout(() => {
+        dispatch({type: AuthActions.logOut})
+      }, 3000);
     }
     if (name && lastName) {
       updateDisplayName(auth.currentUser, {displayName: name+' '+lastName, photoUrl: null })
@@ -76,21 +78,6 @@ export const User = () => {
         successMessage: "usuario Actualizado",
       });
     }
-
-    // try {
-
-    //   // if (!!Authstate.email) {
-    //   //   const sentEmail = resetPassword(Authstate.email);
-    //   //   if (sentEmail) {
-    //   //     dispatch({
-    //   //       type: AuthActions.actionSuccess,
-    //   //       successMessage: "Por Favor Revise su Correo Electronico",
-    //   //     });
-    //   //   }
-    //   // }
-    // } catch (error) {
-    //   // dispatch({ type: AuthActions.actionFailed, errorMessage: error.code });
-    // }
     onResetForm();
   };
 
@@ -99,31 +86,7 @@ export const User = () => {
       <Header />
       <div className="signInContainerLoginPage">
         <div className="columnLoginPage">
-          {Authstate.role === Roles.admin ? (
-            <>
-              <Card id="authState">
-                <ul>
-                  {/* add li for first and last names properties */}
-                  <li>
-                    nombre Completo:
-                    {!!Authstate.displayName === true ? (
-                      <p>
-                        {Authstate.displayName}
-                      </p>
-                    ) : (
-                      "no disponible"
-                    )}
-                  </li>
-                  <li>email: {Authstate.email}</li>
-                  <li>
-                    isVerified:
-                    {Authstate.isVerified === true ? "true" : "false"}
-                  </li>
-                  <li>role: {Authstate.role}</li>
-                </ul>
-              </Card>
-            </>
-          ) : null}
+          
 
           <Card>
             <Card.Body>

@@ -18,25 +18,16 @@ export async function getUsersData() {
   return usersData;
 }
 
-export async function registerUser(email, displayName, id) {
+export async function registerUser(email, displayName, id, signUpDate) {
   const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/users/register", {
     email: email,
     displayName: displayName,
     id: id,
+    signUpDate: signUpDate,
   });
   const response = await request.data.results;
   return response;
 }
-
-
-export async function createUser(id, displayName) {
-  const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/users/add", {
-    id: id,
-    displayName: displayName,
-  });
-  return request;
-}
-
 export async function createOrder(orderId, id, products) {
   const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/package/add", {
     orderId: orderId,
@@ -46,3 +37,28 @@ export async function createOrder(orderId, id, products) {
   const response = await request.data.results;
   return response;
 }
+
+
+
+
+/*----ELIMINATED FUNCTION ----- */
+// export async function updateUser(email, displayName, id) {
+//   const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/register", {
+//     email: email,
+//     displayName: displayName,
+//     id: id,
+//   });
+//   const response = await request.data.results;
+//   return response;
+// }
+
+/*----ELIMINATED FUNCTION ----- */
+// export async function createUser(id, displayName) {
+//   const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/users/add", {
+//     id: id,
+//     displayName: displayName,
+//   });
+//   return request;
+// }
+
+

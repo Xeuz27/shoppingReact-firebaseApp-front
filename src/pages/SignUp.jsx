@@ -34,6 +34,7 @@ export default function SignUp() {
   } = useForm(formData);
 
   async function handleSubmit(e) {
+    const signUpDate = new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})
     dispatch({ type: AuthActions.checking });
     e.preventDefault();
 
@@ -50,7 +51,7 @@ export default function SignUp() {
        const SignUpResponse = await signup(email, password);
        dispatch({ type: AuthActions.logIn, user: SignUpResponse.user });
       //register user to our db
-      registerUser(email, displayName, id );
+      registerUser(email, displayName, id, signUpDate );
          Navigate("/user");
          onResetForm();
        } catch (error) {

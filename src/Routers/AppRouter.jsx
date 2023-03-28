@@ -16,7 +16,7 @@ import Locker from "../pages/Locker";
 import { ResetPassword } from "../pages/ResetPassword";
 import Administrator from "../pages/Administrator";
 import { User } from "../pages/User";
-import AddUser from "../components/addUser";
+// import AddUser from "../components/addUser";
 import AddOrder from "../components/addOrder";
 import UsersTable from "../components/UsersTable";
 
@@ -42,10 +42,10 @@ export const AppRouter = () => {
         Authstate.isVerified ? (
           <>
             <Route path="/administrator" element={<Administrator />} />
-            <Route
+            {/* <Route
               path="/administrator/user"
               element={<Administrator Children={<AddUser />}></Administrator>}
-            />
+            /> */}
             <Route
               path="/administrator/getusers"
               element={

@@ -12,6 +12,7 @@ import { useCheckAuth } from "../hooks/UseCheckAuth";
 export default function Header() {
   let cerrado = true;
   let menu = document.getElementById("enlaces");
+  let abrirMenu = document.getElementById("open");
 
   const Navigate = useNavigate();
   const { dispatch } = useContext(AuthContext);
@@ -39,6 +40,16 @@ export default function Header() {
       menu.style.removeProperty("overflow");
     }
   });
+  window.addEventListener("click", function(e) {
+    if (cerrado === false) {
+        let span = document.querySelector("span")
+        if (e.target !== span && e.target !== abrirMenu) {
+            menu.style.width = "0%"
+            menu.style.overflow = "hidden";
+            cerrado = true
+        }
+    }
+})
   return (
     <>
       <header id="header">
@@ -54,12 +65,12 @@ export default function Header() {
               {Authstate.role === Roles.user || Authstate.role === Roles.admin ? (
                 <>
                   <li>
-                    <Link to="/profile">user</Link>
+                    <Link to="/profile">Perfil de Usuario</Link>
                   </li>
                 </>
               ) : null}
               <li>
-                <Link to="/home">inicio</Link>
+                <Link to="/home">Inicio</Link>
               </li>
               <li>
                 <Link to="/order">Ver Pedido</Link>
@@ -72,7 +83,7 @@ export default function Header() {
               </li>
             
               {Authstate.role === Roles.admin ? <>
-              <li><Link to='/administrator/user'>Agregar usuario</Link></li>
+              {/* <li><Link to='/administrator/user'>Agregar usuario</Link></li> */}
               <li><Link to="/administrator/getusers"> Ver usuarios</Link></li>
               <li><Link to="/administrator/order"> Crear paquete</Link></li>
               </>: null}

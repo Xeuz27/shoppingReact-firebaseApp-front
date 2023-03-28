@@ -21,7 +21,7 @@ export default function UsersTable() {
                         <table className="paleBlueRows">
                             <thead>
                                 <tr>
-                                    <th> # de cédula </th>
+                                    <th className='numeric'> # de cédula </th>
                                     <th> nombre completo </th>
                                     <th> correo </th>
                                     <th> fecha de registro </th>
@@ -30,10 +30,10 @@ export default function UsersTable() {
                             <tbody>
                                 {usersData.map( (element, index) => (
                                     <tr key={index}>
-                                        <td> {element.userId}</td>
-                                        <td> {element.displayName}</td>
-                                        <td> {element.email}</td>
-                                        <td> {element.signUpDate}</td>
+                                        <td data-title="# de cedula"> {element.userId}</td>
+                                        <td data-title="nombre completo"> {element.displayName}</td>
+                                        <td data-title="correo"> {element.email}</td>
+                                        <td data-title="fecha de registro"> {element.signUpDate}</td>
                                     </tr>
                                 ))}
                             </tbody> 

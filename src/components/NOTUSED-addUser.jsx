@@ -27,6 +27,7 @@ export default function AddUser() {
 
   const handleClick = async () => {
     const response = await createUser(id, displayName);
+    console.log(response)
     if( response.data.results === 200  ) {
       dispatch({
         type: AuthActions.actionSuccess,
@@ -41,7 +42,7 @@ export default function AddUser() {
     )
   };
   return (
-    <Card  style={{marginTop:'480px'}}>
+    <Card >
       <h2 className="text-center p-2 bg-acqua mb-0">crear Usuario</h2>
       <Card.Body>
         {!!errorMessage && <Alert variant="danger"> {errorMessage} </Alert>}

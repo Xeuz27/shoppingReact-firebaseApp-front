@@ -17,22 +17,22 @@ const handleBackButton = () =>{
               <tr>
                 <th> producto </th>
                 <th> descripcion </th>
-                <th> precio </th>
-                <th> cantidad </th>
-                <th> foto </th>
+                <th className="numeric"> precio </th>
+                <th className="numeric"> cantidad </th>
+                {/* <th> foto </th> */}
               </tr>
             </thead>
 
             <tbody>
               {data.packageItems.map((item, index) => (
                 <tr key={index}>
-                  <td> {item.name}</td>
-                  <td> {item.descripcion}</td>
-                  <td> {item.price} $</td>
-                  <td> {item.quantity} UND</td>
-                  <td>
+                  <td data-title="name"> {item.name}</td>
+                  <td data-title="descripcion"> {item.descripcion}</td>
+                  <td data-title="price" className="numeric"> {item.price} $</td>
+                  <td data-title="quantity" className="numeric"> {item.quantity} UND</td>
+                  {/* <td data-title="foto">
                     <img src={item.productPhoto} alt={`foto de ${item.name}`} />
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

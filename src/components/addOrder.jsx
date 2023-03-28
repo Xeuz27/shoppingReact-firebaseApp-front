@@ -5,7 +5,6 @@ import {
   FormControl,
   FormGroup,
   FormLabel,
-  Table,
 } from "react-bootstrap";
 import { useForm } from "../hooks/UseForm";
 import { ProductActions } from "../constants/actions";
@@ -51,7 +50,8 @@ export default function AddOrder() {
   };
 
   const handleCreateOrder = async () => {
-    createOrder(idOrder, clientId, Orderstate.products);
+    createOrder(Orderstate.orderId, Orderstate.clientId, Orderstate.products);
+    orderDispatch({type: ProductActions.clearState})
     onResetForm();
   };
 
@@ -68,7 +68,8 @@ export default function AddOrder() {
   return (
     <>
       {/*  add margin top 250px to first card */}
-      <Card style={{ marginTop: "480px" }}>
+    {Orderstate.orderId ? null : <>
+      <Card>
         <h2 className="text-center p-2 bg-acqua mb-0">Crear Paquete</h2>
         <Card.Body>
           {/* {!!errorMessage && <Alert variant="danger"> {errorMessage} </Alert>}
@@ -115,6 +116,11 @@ export default function AddOrder() {
           <Button onClick={handleAddOrder}>Agregar</Button>
         </Card.Body>
       </Card>
+    </>}
+
+
+
+      
 
       <Card>
         <Card.Body>
@@ -193,28 +199,28 @@ export default function AddOrder() {
 
       {Orderstate.products.length > 0 ? (
         <div className="tableContainer">
-          <Table className="paleBlueRows">
+          <table className="paleBlueRows">
             <thead>
               <tr>
                 <th>nombre de producto</th>
                 <th>descripcion</th>
-                <th>precio</th>
-                <th>cantidad</th>
+                <th class="numeric">precio</th>
+                <th class="numeric">cantidad</th>
                 <th>foto</th>
               </tr>
             </thead>
             <tbody>
               {Orderstate.products.map((product) => (
                 <tr>
-                  <td>{product.name}</td>
-                  <td>{product.descripcion}</td>
-                  <td>{product.price} $</td>
-                  <td>{product.quantity} UND</td>
-                  <td>{product.photourl}</td>
+                  <td data-title="name">{product.name}</td>
+                  <td data-title="descripcion">{product.descripcion}</td>
+                  <td data-title="price" class="numeric">{product.price} $</td>
+                  <td data-title="quantity" class="numeric">{product.quantity} UND</td>
+                  <td data-title="foto">{product.photourl}</td>
                 </tr>
               ))}
             </tbody>
-          </Table>
+          </table>
         </div>
       ) : null}
     </>
