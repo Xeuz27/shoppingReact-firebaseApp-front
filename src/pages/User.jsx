@@ -88,7 +88,7 @@ export const User = () => {
         <div className="columnLoginPage">
           
 
-          <Card>
+          <Card className="p-0">
             <Card.Body>
             <h2 className="text-center p-2 bg-acqua mb-0">perfil de usuario</h2>
               {errorMessage && <Alert variant="danger"> {errorMessage} </Alert>}
@@ -96,7 +96,7 @@ export const User = () => {
                 <Alert variant="success"> {successMessage} </Alert>
               )}
 
-              <Form>
+              <Form className="p-3">
                 
                 <FormGroup>
                   <FormLabel>Nombre Completo</FormLabel>
