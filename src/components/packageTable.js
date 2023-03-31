@@ -43,7 +43,7 @@ const handleBackButton = () =>{
                       <IKImage
                         publicKey={publicKey}
                         urlEndpoint={urlEndpoint}
-                        path={item.photoUrl}
+                        src={item.photoUrl}
                         transformation={[{ height: "auto", width: 80 }]}
                         loading="lazy"
                         height="auto"

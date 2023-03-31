@@ -29,7 +29,7 @@ export const OrderReducer = (previousState, action) => {
             descripcion: action.descripcion,
             price: action.price,
             quantity: action.quantity,
-            photoUrl: action.filePath
+            photoUrl: action.photoUrl
           },
         ],
       };

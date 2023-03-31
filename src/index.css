@@ -181,7 +181,7 @@ button i {
   /* min-height: 300px;
   max-height: 100%; */
   min-height: 100vh;
-  width: clamp(300px, 95%, 555px);
+  width: clamp(300px, 85%, 700px);
   box-shadow: rgba(0,0,0,0.1) 0 1px 10px;
   padding: 100px 15px;
 }
@@ -338,12 +338,10 @@ button i {
   overflow-x:hidden ;
 }
 .tableContainer {
-  width: clamp(275px, 80%, 500px);
   text-align: center;
   margin: 0px auto;
   overflow-y: scroll;
   overflow-x: hidden;
-  max-height: 500px;
 }
 .container {
   width: min(85%, 970px)!important;
@@ -444,9 +442,10 @@ table.paleBlueRows tfoot td {
   font-size: 14px;
 }
 table.paleBlueRows img {
-  width: 100%;
+  width: 120px;
   aspect-ratio: 1;
-  vertical-align: middle;
+  margin-inline: auto;
+    display: block;
 }
 /*
  */

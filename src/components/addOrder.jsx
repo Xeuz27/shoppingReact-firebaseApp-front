@@ -27,7 +27,7 @@ export default function AddOrder() {
   };
 
   const onSuccess = (res) => {
-    handleAddProduct({ filePath: res.filePath });
+    handleAddProduct(res.url);
   };
   const formData = {
     clientId: "",
@@ -72,14 +72,14 @@ export default function AddOrder() {
     onResetForm();
   };
 
-  const handleAddProduct = (filePath) => {
+  const handleAddProduct = (url) => {
     orderDispatch({
       type: ProductActions.addProduct,
       name: productName,
       descripcion: descripcion,
       price: price,
       quantity: quantity,
-      photoUrl: filePath,
+      photoUrl: url,
     });
     onResetForm();
   };
@@ -205,9 +205,9 @@ export default function AddOrder() {
                 />
                 {inputRefTest && (
                   <button
-                  style={{marginInline:'auto',display:'block'}}
-                  className="btn btn-primary"
-                  onClick={() => inputRefTest.current.click()}
+                    style={{ marginInline: "auto", display: "block" }}
+                    className="btn btn-primary"
+                    onClick={() => inputRefTest.current.click()}
                   >
                     añadir foto del producto
                   </button>
@@ -231,7 +231,6 @@ export default function AddOrder() {
               </IKContext>
             </>
           ) : null}
-
         </Card.Body>
       </Card>
 
@@ -275,11 +274,10 @@ export default function AddOrder() {
                       <IKImage
                         publicKey={publicKey}
                         urlEndpoint={urlEndpoint}
-                        path={product.photoUrl}
-                        transformation={[{ height: "auto", width: 80 }]}
-                        loading="lazy"
+                        src={product.photoUrl}
+                        quantity="100"
                         height="auto"
-                        width="100"
+                        width="60"
                       />
                     </IKContext>
                   </td>
