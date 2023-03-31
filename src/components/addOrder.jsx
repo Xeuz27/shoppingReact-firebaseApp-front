@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef } from "react";
 import {
   Button,
   Card,
@@ -14,13 +14,11 @@ import { IKContext, IKUpload, IKImage } from "imagekitio-react";
 
 export default function AddOrder() {
   const publicKey = "public_rw5MD5lD1Lg+0TkL0gHzyJLMDbI=";
-  const authenticationEndpoint = "http://localhost:3001/auth";
+  const authenticationEndpoint = "https://shopping-react-firebase-app-back.vercel.app/auth";
   const urlEndpoint = "https://ik.imagekit.io/0oguwfou0i";
 
   const { Orderstate } = useContext(OrderContext);
   const { orderDispatch } = useContext(OrderContext);
-
-  const [path, setPath] = useState(null);
 
   const inputRefTest = useRef(null);
   const ikUploadRefTest = useRef(null);
@@ -29,18 +27,8 @@ export default function AddOrder() {
   };
 
   const onSuccess = (res) => {
-    console.log("Success", res);
     handleAddProduct({ filePath: res.filePath });
   };
-  const onUploadProgress = (progress) => {
-    console.log("Progress", progress);
-  };
-
-  const onUploadStart = (evt) => {
-    console.log("Start", evt);
-  };
-  // const [img, setimg] = useState([]);
-
   const formData = {
     clientId: "",
     idOrder: "",
@@ -217,10 +205,11 @@ export default function AddOrder() {
                 />
                 {inputRefTest && (
                   <button
-                    className="btn btn-primary"
-                    onClick={() => inputRefTest.current.click()}
+                  style={{marginInline:'auto',display:'block'}}
+                  className="btn btn-primary"
+                  onClick={() => inputRefTest.current.click()}
                   >
-                    subir foto
+                    añadir foto del producto
                   </button>
                 )}
                 {/* <p>Abort upload request</p>
@@ -243,24 +232,6 @@ export default function AddOrder() {
             </>
           ) : null}
 
-          {/* <FormGroup className="mb-3">
-            <FormLabel>subir foto del producto</FormLabel>
-            <FormControl
-              placeholder={"por favor seleccione una foto si esta disponible"}
-              type="file"
-              onChange={setimg}
-              name="file"
-              id="file"
-              accept="image/png,image/jpeg"
-            />
-            <IKContext publicKey="your_public_api_key" authenticationEndpoint="https://www.your-server.com/auth">
-          // Simple file upload and response handling
-          <IKUpload
-            onError={onError}
-            onSuccess={onSuccess}
-          /> </IKContext>
-          </FormGroup> */}
-          {/* <Button onClick={handleAddProduct}> agregar al paquete</Button> */}
         </Card.Body>
       </Card>
 

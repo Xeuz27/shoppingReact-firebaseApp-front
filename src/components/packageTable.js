@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { IKContext, IKUpload, IKImage } from "imagekitio-react";
+import { IKContext, IKImage } from "imagekitio-react";
 
 
 export default function PackageTable(data) {
@@ -23,7 +23,7 @@ const handleBackButton = () =>{
                 <th> descripcion </th>
                 <th className="numeric"> precio </th>
                 <th className="numeric"> cantidad </th>
-                {/* <th> foto </th> */}
+                 <th> foto </th>
               </tr>
             </thead>
 
@@ -47,7 +47,7 @@ const handleBackButton = () =>{
                         transformation={[{ height: "auto", width: 80 }]}
                         loading="lazy"
                         height="auto"
-                        width="100"
+                        width="80"
                         alt={`foto de ${item.name}`}
                       />
                     </IKContext>
