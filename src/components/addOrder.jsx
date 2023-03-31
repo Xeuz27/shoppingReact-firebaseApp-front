@@ -14,7 +14,7 @@ import { IKContext, IKUpload, IKImage } from "imagekitio-react";
 
 export default function AddOrder() {
   const publicKey = "public_rw5MD5lD1Lg+0TkL0gHzyJLMDbI=";
-  const authenticationEndpoint = "https://shopping-react-firebase-app-back.vercel.app/auth";
+  const authenticationEndpoint = "https://shopping-react-firebase-app-back.vercel.app/ikauthroute";
   const urlEndpoint = "https://ik.imagekit.io/0oguwfou0i";
 
   const { Orderstate } = useContext(OrderContext);
