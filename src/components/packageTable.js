@@ -44,11 +44,9 @@ export default function PackageTable(data) {
                     <td data-title="name"> {item.name}</td>
                     <td data-title="descripcion"> {item.descripcion}</td>
                     <td data-title="price" className="numeric">
-                      {" "}
                       {item.price} $
                     </td>
                     <td data-title="quantity" className="numeric">
-                      {" "}
                       {item.quantity} UND
                     </td>
                     <td data-title="foto">
