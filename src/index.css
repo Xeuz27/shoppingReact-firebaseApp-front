@@ -364,7 +364,6 @@ main .content p {
     border-bottom: none;
     margin-bottom: 0;
     padding: 5px;
-    width: clamp(275px, 80%, 500px);
     text-align: center;
     font-size: 32px;
 }
@@ -395,6 +394,11 @@ main .content p {
 table.paleBlueRows {
   font-family: sans-serif;
   border-collapse: collapse;
+}
+table#products-table > th.productos-title{
+  display: none;
+  background-color: #0B6FA4;
+  color: #FFFFFF;
 }
 table.paleBlueRows td, table.paleBlueRows th {
   border: 1px solid #FFFFFF;
@@ -450,7 +454,10 @@ table.paleBlueRows img {
 /*
  */
 @media only screen and (max-width: 800px) {
-	
+
+	table#products-table > th.productos-title{
+    display: block;
+  }
 	/* Force table to not be like tables anymore */
 	 table, 
 	 thead, 

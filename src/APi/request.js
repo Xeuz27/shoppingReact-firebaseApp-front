@@ -7,9 +7,12 @@ export async function getPackageData(id, idOrder) {
     id: id,
     idOrder: idOrder,
   });
-
    const productsjson = JSON.parse(req.data[0].products)
-    return productsjson;
+   const results = {
+    status: req.data[0].status,
+    products: productsjson
+   }
+    return results;
 }
 
 export async function getUsersData() {
