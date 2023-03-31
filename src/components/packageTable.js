@@ -44,7 +44,7 @@ const handleBackButton = () =>{
                         publicKey={publicKey}
                         urlEndpoint={urlEndpoint}
                         src={item.photoUrl}
-                        transformation={[{ height: "auto", width: 80 }]}
+                        transformation={[{ height: "auto", width: 300 }]}
                         loading="lazy"
                         height="auto"
                         width="80"

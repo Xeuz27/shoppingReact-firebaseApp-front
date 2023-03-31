@@ -275,9 +275,10 @@ export default function AddOrder() {
                         publicKey={publicKey}
                         urlEndpoint={urlEndpoint}
                         src={product.photoUrl}
+                        transformation={[{ height: "auto", width: 300 }]}
                         quantity="100"
                         height="auto"
-                        width="60"
+                        width="80"
                       />
                     </IKContext>
                   </td>
