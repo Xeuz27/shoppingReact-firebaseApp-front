@@ -28,11 +28,12 @@ export async function registerUser(email, displayName, id, signUpDate) {
   const response = await request.data.results;
   return response;
 }
-export async function createOrder(orderId, id, products) {
+export async function createOrder(orderId, id, products, status) {
   const request = await axios.post("https://shopping-react-firebase-app-back.vercel.app/package/add", {
     orderId: orderId,
     id: id,
     products: products,
+    status: status
   });
   const response = await request.data.results;
   return response;

@@ -1,8 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { IKContext, IKUpload, IKImage } from "imagekitio-react";
 
 
 export default function PackageTable(data) {
+  const publicKey = "public_rw5MD5lD1Lg+0TkL0gHzyJLMDbI=";
+  const authenticationEndpoint = "http://localhost:3001/auth";
+  const urlEndpoint = "https://ik.imagekit.io/0oguwfou0i";
   const Navigate =  useNavigate()
 const handleBackButton = () =>{
   Navigate('/home')
@@ -30,9 +34,24 @@ const handleBackButton = () =>{
                   <td data-title="descripcion"> {item.descripcion}</td>
                   <td data-title="price" className="numeric"> {item.price} $</td>
                   <td data-title="quantity" className="numeric"> {item.quantity} UND</td>
-                  {/* <td data-title="foto">
-                    <img src={item.productPhoto} alt={`foto de ${item.name}`} />
-                  </td> */}
+                  <td data-title="foto">
+                    <IKContext
+                      publicKey={publicKey}
+                      urlEndpoint={urlEndpoint}
+                      authenticationEndpoint={authenticationEndpoint}
+                    >
+                      <IKImage
+                        publicKey={publicKey}
+                        urlEndpoint={urlEndpoint}
+                        path={item.photoUrl}
+                        transformation={[{ height: "auto", width: 80 }]}
+                        loading="lazy"
+                        height="auto"
+                        width="100"
+                        alt={`foto de ${item.name}`}
+                      />
+                    </IKContext>
+                    </td>
                 </tr>
               ))}
             </tbody>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useState } from "react";
 import {
   Button,
   Card,
@@ -10,11 +10,35 @@ import { useForm } from "../hooks/UseForm";
 import { ProductActions } from "../constants/actions";
 import { OrderContext } from "../contexts/orderContext";
 import { createOrder } from "../APi/request";
-// import { IKContext, IKUpload } from "imagekitio-react";
+import { IKContext, IKUpload, IKImage } from "imagekitio-react";
 
 export default function AddOrder() {
+  const publicKey = "public_rw5MD5lD1Lg+0TkL0gHzyJLMDbI=";
+  const authenticationEndpoint = "http://localhost:3001/auth";
+  const urlEndpoint = "https://ik.imagekit.io/0oguwfou0i";
+
   const { Orderstate } = useContext(OrderContext);
   const { orderDispatch } = useContext(OrderContext);
+
+  const [path, setPath] = useState(null);
+
+  const inputRefTest = useRef(null);
+  const ikUploadRefTest = useRef(null);
+  const onError = (err) => {
+    console.log("Error", err);
+  };
+
+  const onSuccess = (res) => {
+    console.log("Success", res);
+    handleAddProduct({ filePath: res.filePath });
+  };
+  const onUploadProgress = (progress) => {
+    console.log("Progress", progress);
+  };
+
+  const onUploadStart = (evt) => {
+    console.log("Start", evt);
+  };
   // const [img, setimg] = useState([]);
 
   const formData = {
@@ -50,77 +74,81 @@ export default function AddOrder() {
   };
 
   const handleCreateOrder = async () => {
-    createOrder(Orderstate.orderId, Orderstate.clientId, Orderstate.products);
-    orderDispatch({type: ProductActions.clearState})
+    createOrder(
+      Orderstate.orderId,
+      Orderstate.clientId,
+      Orderstate.products,
+      Orderstate.status
+    );
+    orderDispatch({ type: ProductActions.clearState });
     onResetForm();
   };
 
-  const handleAddProduct = () => {
+  const handleAddProduct = (filePath) => {
     orderDispatch({
       type: ProductActions.addProduct,
       name: productName,
       descripcion: descripcion,
       price: price,
       quantity: quantity,
+      photoUrl: filePath,
     });
     onResetForm();
   };
   return (
     <>
       {/*  add margin top 250px to first card */}
-    {Orderstate.orderId ? null : <>
-      <Card>
-        <h2 className="text-center p-2 bg-acqua mb-0">Crear Paquete</h2>
-        <Card.Body>
-          {/* {!!errorMessage && <Alert variant="danger"> {errorMessage} </Alert>}
+      {Orderstate.orderId ? null : (
+        <>
+          <Card>
+            <h2 className="text-center p-2 bg-acqua mb-0">Crear Paquete</h2>
+            <Card.Body>
+              {/* {!!errorMessage && <Alert variant="danger"> {errorMessage} </Alert>}
           {successMessage && (
             <Alert variant="success"> {successMessage} </Alert>
           )} */}
-          <FormGroup className="mb-3">
-            <FormLabel>Número de Paquete</FormLabel>
-            <FormControl
-              placeholder={
-                "Números enteros o letras sin espacios o puntos ej: '85ab7f'"
-              }
-              type="text"
-              name="idOrder"
-              value={idOrder}
-              onChange={onInputChange}
-            />
-          </FormGroup>
+              <FormGroup className="mb-3">
+                <FormLabel>Número de Paquete</FormLabel>
+                <FormControl
+                  placeholder={
+                    "Números enteros o letras sin espacios o puntos ej: '85ab7f'"
+                  }
+                  type="text"
+                  name="idOrder"
+                  value={idOrder}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
 
-          <FormGroup className="mb-3">
-            <FormLabel>Número de cedula del cliente</FormLabel>
-            <FormControl
-              placeholder={
-                "Números enteros sin espacios o puntos ej: '23505303'"
-              }
-              type="text"
-              name="clientId"
-              value={clientId}
-              onChange={onInputChange}
-            />
-          </FormGroup>
+              <FormGroup className="mb-3">
+                <FormLabel>Número de cedula del cliente</FormLabel>
+                <FormControl
+                  placeholder={
+                    "Números enteros sin espacios o puntos ej: '23505303'"
+                  }
+                  type="text"
+                  name="clientId"
+                  value={clientId}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
 
-          <FormGroup className="mb-3">
-            <FormLabel>status del pedido</FormLabel>
-            <FormControl
-              placeholder={"por comprar, comprado, por empaquetar, etc"}
-              type="text"
-              name="status"
-              value={status}
-              onChange={onInputChange}
-            />
-          </FormGroup>
+              <FormGroup className="mb-3">
+                <FormLabel>status del pedido</FormLabel>
+                <FormControl
+                  placeholder={"por comprar, comprado, por empaquetar, etc"}
+                  type="text"
+                  name="status"
+                  value={status}
+                  onChange={onInputChange}
+                />
+              </FormGroup>
 
-          <Button onClick={handleAddOrder}>Agregar</Button>
-        </Card.Body>
-      </Card>
-    </>}
-
-
-
-      
+              <Button onClick={handleAddOrder}>Agregar</Button>
+            </Card.Body>
+          </Card>
+        </>
+      )}
 
       <Card>
         <Card.Body>
@@ -168,6 +196,53 @@ export default function AddOrder() {
               onChange={onInputChange}
             />
           </FormGroup>
+
+          {Orderstate.orderId ? (
+            <>
+              <IKContext
+                publicKey={publicKey}
+                urlEndpoint={urlEndpoint}
+                authenticationEndpoint={authenticationEndpoint}
+              >
+                <IKUpload
+                  folder={"/products-folder"}
+                  fileName={`${Orderstate.orderId}+${productName}.png`}
+                  onError={onError}
+                  onSuccess={onSuccess}
+                  // onUploadProgress={onUploadProgress}
+                  // onUploadStart={onUploadStart}
+                  style={{ display: "none" }} // hide the default input and use the custom upload button
+                  inputRef={inputRefTest}
+                  ref={ikUploadRefTest}
+                />
+                {inputRefTest && (
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => inputRefTest.current.click()}
+                  >
+                    subir foto
+                  </button>
+                )}
+                {/* <p>Abort upload request</p>
+        {ikUploadRefTest && <button className="btn btn-danger" onClick={() => ikUploadRefTest.current.abort()}>cancelar subir foto</button>} */}
+
+                {/* {path === null ? null : (
+          <>
+            <IKImage
+              publicKey={publicKey}
+              urlEndpoint={urlEndpoint}
+              path={path}
+              transformation={[{ height: "auto", width: 100 }]}
+              loading="lazy"
+              height="auto"
+              width="100"
+            />
+          </>
+        )} */}
+              </IKContext>
+            </>
+          ) : null}
+
           {/* <FormGroup className="mb-3">
             <FormLabel>subir foto del producto</FormLabel>
             <FormControl
@@ -185,7 +260,7 @@ export default function AddOrder() {
             onSuccess={onSuccess}
           /> </IKContext>
           </FormGroup> */}
-          <Button onClick={handleAddProduct}> agregar al paquete</Button>
+          {/* <Button onClick={handleAddProduct}> agregar al paquete</Button> */}
         </Card.Body>
       </Card>
 
@@ -206,7 +281,7 @@ export default function AddOrder() {
                 <th>descripcion</th>
                 <th class="numeric">precio</th>
                 <th class="numeric">cantidad</th>
-                {/* <th>foto</th> */}
+                <th>foto</th>
               </tr>
             </thead>
             <tbody>
@@ -214,9 +289,29 @@ export default function AddOrder() {
                 <tr>
                   <td data-title="name">{product.name}</td>
                   <td data-title="descripcion">{product.descripcion}</td>
-                  <td data-title="price" class="numeric">{product.price} $</td>
-                  <td data-title="quantity" class="numeric">{product.quantity} UND</td>
-                  {/* <td data-title="foto">{product.photourl}</td> */}
+                  <td data-title="price" class="numeric">
+                    {product.price} $
+                  </td>
+                  <td data-title="quantity" class="numeric">
+                    {product.quantity} UND
+                  </td>
+                  <td data-title="foto">
+                    <IKContext
+                      publicKey={publicKey}
+                      urlEndpoint={urlEndpoint}
+                      authenticationEndpoint={authenticationEndpoint}
+                    >
+                      <IKImage
+                        publicKey={publicKey}
+                        urlEndpoint={urlEndpoint}
+                        path={product.photoUrl}
+                        transformation={[{ height: "auto", width: 80 }]}
+                        loading="lazy"
+                        height="auto"
+                        width="100"
+                      />
+                    </IKContext>
+                  </td>
                 </tr>
               ))}
             </tbody>
