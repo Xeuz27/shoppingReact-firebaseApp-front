@@ -1,25 +1,64 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+  "short_name": "Por Tu Compra USA",
+  "name": "Por Tu Compra USA APP - Personal Shopper",
+  "description": "app para que los clientes de Por Tu compra USA - Personal Shopper puedan ver los estados y productos de sus compras directamente desde su tlf",
+  "dir":"ltr",
+  "display_override": ["standalone", "fullscreen"],
+  "display": "standalone",
+  "lang": "es-ES",
+  "orientation":"portrait",
+  "prefer_related_application":"false",
+  "scope":"/",
+  "shortcuts":[
+    {"name": "Ver status y productos de tu pedido.",
+    "short_name":"Ver Pedido.",
+    "description": "Atajo hacia pagina para ver status y productos de tu pedido.",
+    "url":"/order"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "start_url":"https://shopping-react-firebase-app-front.vercel.app/#/home?",
+  "theme_color":"#003153",
+  "background_color": "#004e86",
+
+
+  "developer": "Jesus Gutierrez",
+
+
+  "date": "2023-04-01",
+  "version": "1",
+
+  
+  "icons": [
+    {
+      "src": "favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/x-icon",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon-32x32.png",
+      "type": "image/x-icon",
+      "sizes": "32x32",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon.ico",
+      "type": "image/x-icon",
+      "sizes": "48x48",
+      "purpose": "any"
+    },
+    {
+      "src": "android-chrome-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    
+    {
+      "src": "android-chrome-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    }
+  ]
 }
