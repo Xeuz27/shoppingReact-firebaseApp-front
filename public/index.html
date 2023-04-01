@@ -5,14 +5,17 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#003153" />
-    <meta name="apple-mobile-web-app-title" content="Por Tu Compra USA APP">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Por Tu Compra USA APP" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
     <meta
       name="description"
       content="status managing app for package deliveries and shopping abroad"
     />
-    <meta name="apple-mobile-web-app-title" content="PorTuCompraUsaAPP">
+    <meta name="apple-mobile-web-app-title" content="PorTuCompraUsaAPP" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
     <link
       rel="apple-touch-startup-image"
@@ -64,4 +67,9 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script type="text/javascript" src="%PUBLIC_URL%/service.worker.js">
+    if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./service.worker.js')
+      }
+  </script>
 </html>
