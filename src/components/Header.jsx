@@ -50,27 +50,39 @@ export default function Header() {
       }
     }
   });
-  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [isReadyForInstall, setIsReadyForInstall] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
+    window.addEventListener("beforeinstallprompt", (event) => {
+      // Prevent the mini-infobar from appearing on mobile.
+      event.preventDefault();
+      console.log("👍", "beforeinstallprompt", event);
+      // Stash the event so it can be triggered later.
+      window.deferredPrompt = event;
+      // Remove the 'hidden' class from the install button container.
+      setIsReadyForInstall(true);
     });
   }, []);
-  const installApp = () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === "accepted") {
-          console.log("User accepted the install prompt");
-        } else {
-          console.log("User dismissed the install prompt");
-        }
-        setDeferredPrompt(null);
-      });
+  async function downloadApp() {
+    console.log("👍", "butInstall-clicked");
+    const promptEvent = window.deferredPrompt;
+    if (!promptEvent) {
+      // The deferred prompt isn't available.
+      console.log("oops, no prompt event guardado en window");
+      return;
     }
-  };
+    // Show the install prompt.
+    promptEvent.prompt();
+    // Log the result
+    const result = await promptEvent.userChoice;
+    console.log("👍", "userChoice", result);
+    // Reset the deferred prompt variable, since
+    // prompt() can only be called once.
+    window.deferredPrompt = null;
+    // Hide the install button.
+    setIsReadyForInstall(false);
+  }
+  
   return (
     <>
       <header id="header">
@@ -127,7 +139,8 @@ export default function Header() {
               {/* todo: create shopping component and navlink */}
               {/* <li>Hacer Compras</li> */}
             </div>
-            <button onClick={installApp}>Install App</button>
+            {isReadyForInstall && <button className="btn btn-lg" onClick={downloadApp}>Install App</button>}
+            
             <div onClick={apertura} className="icono" id="open">
               <span>&#9776;</span>
             </div>
