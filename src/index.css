@@ -395,7 +395,7 @@ table.paleBlueRows {
   font-family: sans-serif;
   border-collapse: collapse;
 }
-table#products-table > th.productos-title{
+table#products-table th.productos-title{
   display: none;
   background-color: #0B6FA4;
   color: #FFFFFF;
