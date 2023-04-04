@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../imgs/logoyoha.jpg";
 import { Link } from "react-router-dom";
@@ -40,16 +40,37 @@ export default function Header() {
       menu.style.removeProperty("overflow");
     }
   });
-  window.addEventListener("click", function(e) {
+  window.addEventListener("click", function (e) {
     if (cerrado === false) {
-        let span = document.querySelector("span")
-        if (e.target !== span && e.target !== abrirMenu) {
-            menu.style.width = "0%"
-            menu.style.overflow = "hidden";
-            cerrado = true
-        }
+      let span = document.querySelector("span");
+      if (e.target !== span && e.target !== abrirMenu) {
+        menu.style.width = "0%";
+        menu.style.overflow = "hidden";
+        cerrado = true;
+      }
     }
-})
+  });
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+
+  useEffect(() => {
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    });
+  }, []);
+  const installApp = () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          console.log("User accepted the install prompt");
+        } else {
+          console.log("User dismissed the install prompt");
+        }
+        setDeferredPrompt(null);
+      });
+    }
+  };
   return (
     <>
       <header id="header">
@@ -61,8 +82,8 @@ export default function Header() {
               </Link>
             </div>
             <div className="enlaces" id="enlaces">
-              
-              {Authstate.role === Roles.user || Authstate.role === Roles.admin ? (
+              {Authstate.role === Roles.user ||
+              Authstate.role === Roles.admin ? (
                 <>
                   <li>
                     <Link to="/profile">Perfil de Usuario</Link>
@@ -81,11 +102,17 @@ export default function Header() {
               <li>
                 <Link to="/locker">Servicio de Casillero</Link>
               </li>
-            
-              {Authstate.role === Roles.admin ? <>
-              <li><Link to="/administrator/getusers"> Ver usuarios</Link></li>
-              <li><Link to="/administrator/order"> Crear paquete</Link></li>
-              </>: null}
+
+              {Authstate.role === Roles.admin ? (
+                <>
+                  <li>
+                    <Link to="/administrator/getusers"> Ver usuarios</Link>
+                  </li>
+                  <li>
+                    <Link to="/administrator/order"> Crear paquete</Link>
+                  </li>
+                </>
+              ) : null}
               {!!Authstate.email ? (
                 <li>
                   <Link to="/home" onClick={handleLogOut}>
@@ -100,6 +127,7 @@ export default function Header() {
               {/* todo: create shopping component and navlink */}
               {/* <li>Hacer Compras</li> */}
             </div>
+            <button onClick={installApp}>Install App</button>
             <div onClick={apertura} className="icono" id="open">
               <span>&#9776;</span>
             </div>
