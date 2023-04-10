@@ -27,7 +27,7 @@ export default function PackageTable(data) {
               </tbody>
             </table>
             <table id="products-table" className="paleBlueRows">
-                 <th className="productos-title">productos</th> 
+              <th className="productos-title">productos</th>
               <thead>
                 <tr>
                   <th> producto </th>
@@ -72,7 +72,11 @@ export default function PackageTable(data) {
               </tbody>
             </table>
           </div>
-          <button style={{display:'block'}} onClick={handleBackButton} className="px-4 mx-auto btn btn-danger">
+          <button
+            style={{ display: "block" }}
+            onClick={handleBackButton}
+            className="px-4 mx-auto btn btn-danger"
+          >
             Atras
           </button>
         </div>

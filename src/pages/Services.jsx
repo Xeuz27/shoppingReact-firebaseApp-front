@@ -1,6 +1,5 @@
 import '../index.css';
 import Header from '../components/Header';
-import { Link } from 'react-router-dom';
 import Footer from '../components/footer';
 
 export default function Services (){
@@ -15,7 +14,7 @@ export default function Services (){
                     <div className="content">
                             <h1>Servicio de compras asistídas (Personal Shopper)</h1>
                             <p>Puedes ir de compras en la la ciudad de Orlando, aunque estes en cualquier parte del mundo.</p>
-                            <p>A diario estamos publicando en nuestro <Link href="https://t.me/Portucomprausa" target="_blank">Canal de Telegram </Link>allí tienes la mejor referencia de ofertas y articulos disponibles en el momento en las tiendas, es nuestra mejor herramientas para que trabajemos juntos.</p>
+                            <p>A diario estamos publicando en nuestro <a href="https://t.me/Portucomprausa" target="_blank" rel='noreferrer'>Canal de Telegram </a>allí tienes la mejor referencia de ofertas y articulos disponibles en el momento en las tiendas, es nuestra mejor herramientas para que trabajemos juntos.</p>
                             <p>Es importante que una vez definido el presupuesto, el dinero debe estar abonado en nuestra cuenta para poder comenzar la compras.</p>
                             <p>Todos nuestros servicios incluyen reempaque, a menos que la mercancia requiera un trato especial y se cobraria adicional.</p>
                             <h2>Como comprar?</h2>
@@ -25,7 +24,7 @@ export default function Services (){
                             <p>Si te sobra dinero y el monto es menor a 35$ tienes un lapso de 3 meses para utilizarlos en otra inversión o pierdes el dinero, sí el monto es superior a 35$ se realiza la devolución por el metodo acordado con el cliente.</p>
                             <p>Tenemos varias opciones de servicios que se adaptan a tus necesidades...</p>
                             <h2>Envíos</h2>
-                            <p>Nosotros contamos con <Link target="_blank" href="https://tucargaexpress.com/">TuCargaExpress</Link> como empresa de confianza para los envios, allí podemos tener mas información y control sobre los estatus y despachos, es por ello que le hemos depositado nuestra confianza. Si el cliente desea realizar el envio con alguna otra empresa, nuestro trabajo termina en el momento en que dejamos la mercancia en el poder de la empresa suministrada por el cliente, de alli en adelante, no nos hacemos responsables.</p>
+                            <p>Nosotros contamos con <a target="_blank" href="https://tucargaexpress.com/" rel='noreferrer'>TuCargaExpress</a> como empresa de confianza para los envios, allí podemos tener mas información y control sobre los estatus y despachos, es por ello que le hemos depositado nuestra confianza. Si el cliente desea realizar el envio con alguna otra empresa, nuestro trabajo termina en el momento en que dejamos la mercancia en el poder de la empresa suministrada por el cliente, de alli en adelante, no nos hacemos responsables.</p>
 
                             <h2>Servicio de Compras asistidas sin límites</h2>
 
@@ -73,7 +72,7 @@ export default function Services (){
                                 <li>Se visitará solamente 2 tiendas.</li>
                             </ul>
 
-                            <p>Se puede tomar como referencia el <Link href="#">Canal de Telegram</Link> para ver que productos estan disponíbles en el momento.</p>
+                            <p>Se puede tomar como referencia el <a href="https://t.me/Portucomprausa" target="_blank" rel='noreferrer'>Canal de Telegram</a> para ver que productos estan disponíbles en el momento.</p>
                             <p>En este servicio no mantenemos contacto durante la compra, a menos qué cuando estemos en la tienda no haya algun producto y te consultemos si deseas realizar algun reemplazo.</p>
                             
 
