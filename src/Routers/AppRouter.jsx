@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { useReducer } from "react";
+import React, { useContext, useReducer } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import { AuthReducer, initialAuthState } from "../reducers/authReducer";
